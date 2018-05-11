@@ -1,25 +1,22 @@
 {
   "name": "react-summer-wars-world-clock",
   "version": "0.1.0-SNAPSHOT",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel ./src/index.jsx --out-dir ./dist",
+    "build": "tsc",
     "prepublish": "npm run build"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ryo Ota",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/d3": "^3.5.40",
+    "@types/node": "^9.6.5",
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.4",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "ts-loader": "^4.3.0",
     "typescript": "^2.8.3"
   },
   "dependencies": {

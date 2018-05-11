@@ -1,10 +1,16 @@
-// (from: https://gist.github.com/shimizu/fde15aa8cf734f1219f8)
+// (original from: https://gist.github.com/shimizu/fde15aa8cf734f1219f8)
 
 import * as d3 from 'd3'
-import moment from 'moment'
-import React, { Component } from 'react'
+import * as moment from 'moment'
+import * as React from 'react';
 
-class WorldClock extends Component {
+export interface Props{
+}
+
+export interface State{
+}
+
+class WorldClock extends React.Component<Props, State> {
   constructor(props){
     super(props)
     this.create = this.create.bind(this)
@@ -19,57 +25,58 @@ class WorldClock extends Component {
 
   create() {
     const _self = this;
-    const node = this.node;
+    const node = (this as any).node;
 
+    const windowWidth  = 960;
+    const windowHeight = 500;
 
-    var windowWidht = 960;
-    var windowHeight = 500;
-
-    node.style.width = windowWidht;
+    node.style.width  = windowWidth;
     node.style.height = windowHeight;
           
-    var svg = d3.select(node);
+    const svg = d3.select(node);
        
-    var projection90 = d3.geo.orthographic() 
-      .scale(windowWidht/4)	
+    const projection90 = d3.geo.orthographic() 
+      .scale(windowWidth/4)	
       .rotate([0,0,0])	
-      .translate([windowWidht / 2, windowHeight / 2])
+      .translate([windowWidth / 2, windowHeight / 2])
       .clipAngle(90);	
       
-    var projection180 = d3.geo.orthographic() 
-      .scale(windowWidht/4)	
+    const projection180 = d3.geo.orthographic() 
+      .scale(windowWidth/4)	
       .rotate([0,0,0])	
-      .translate([windowWidht / 2, windowHeight / 2])
+      .translate([windowWidth / 2, windowHeight / 2])
       .clipAngle(180);	
         
       
-    var frontPath = d3.geo.path().projection(projection90);
-    var backPath = d3.geo.path().projection(projection180);
+    let frontPath = d3.geo.path().projection(projection90);
+    let backPath = d3.geo.path().projection(projection180);
         
-      d3.json("https://gist.githubusercontent.com/shimizu/97c156f7f9137586f784/raw/4be1053346fa88d448c2290c49689634c8102b0a/Landmasses.geojson", function(geojson){ 
+      d3.json("https://gist.githubusercontent.com/shimizu/97c156f7f9137586f784/raw/4be1053346fa88d448c2290c49689634c8102b0a/Landmasses.geojson", (geojson) => { 
         
         
         /*************************************************************
          * 地球儀表示
          *************************************************************/	
-        var stage = svg.append("svg:g"); 
+        const stage = svg.append("svg:g"); 
         
         //ステージを右23.4度傾ける
-        stage.attr("transform", "rotate(23.4, "+windowWidht/2+",  "+windowHeight/2+")") ;
+        // stage.attr("transform", "rotate(23.4, "+windowWidth/2+",  "+windowHeight/2+")");
+        stage.attr("transform", `rotate(23.4, ${+windowWidth/2}, ${windowHeight/2})`);
+        
     
         //地形(裏)
-        var backMap = stage.append("svg:path")
+        const backMap = stage.append("svg:path")
           .attr({
-          "d":function(){ return backPath(geojson)},
+          "d":()=>{ return backPath(geojson)},
             "fill-opacity":1,
             "fill":"#EDE9F1",
             "stroke":"none",
           });
     
         //地形(表)
-        var frontMap = stage.append("svg:path")
+        const frontMap = stage.append("svg:path")
           .attr({
-          "d":function(){ return frontPath(geojson)},
+          "d":()=>{return frontPath(geojson)},
             "fill-opacity":1,
             "fill":"#FD81DB",
             "stroke":"none",
@@ -77,15 +84,15 @@ class WorldClock extends Component {
           
      
         //地形を回転させる
-        var update = function(){
-          var i = 0;
-          return function(){
+        const update = ()=>{
+          let i = 0;
+          return ()=>{
             i = i+0.2;
             projection90.rotate([i,0,0]);  
             projection180.rotate([i,0,0]);  
     
             frontPath = d3.geo.path().projection(projection90);
-            backPath = d3.geo.path().projection(projection180);
+            backPath  = d3.geo.path().projection(projection180);
     
             backMap.attr("d", backPath(geojson)); 
             frontMap.attr("d", frontPath(geojson)); 
@@ -98,28 +105,30 @@ class WorldClock extends Component {
         /*************************************************************
          * 時計表示
          *************************************************************/
-        var marginLeft = windowWidht/7;
-        var marginTop = windowHeight/3 + windowHeight/12;
-        var textY = 8;
+        const marginLeft = windowWidth/7;
+        const marginTop  = windowHeight/3 + windowHeight/12;
+        const textY = 8;
         
         
-        var clockGroup = svg.append("g")
-          .attr("transform", "translate("+[marginLeft, marginTop]+")") ;
+        console.log("translate("+[marginLeft, marginTop]+")");
+        const clockGroup = svg.append("g")
+          .attr("transform", `translate(${marginLeft}, ${marginTop})`);
+          
         
         //テキスト背景描画
-        var clockRect = clockGroup.append("rect")
+        const clockRect = clockGroup.append("rect")
           .attr({
             "width":"70%",
-            "height":windowWidht/10,
+            "height":windowWidth/10,
             "fill":"EDE9F1",
             "fill-opacity": 0.2
           })
         
         //テキスト描画
-        var clockText = clockGroup.append("text")
+        const clockText = clockGroup.append("text")
           .attr({
             "x":"10",
-            "y":windowWidht/11,
+            "y":windowWidth/11,
             "font-size": 110,
             "font-weight":"bold",
             "font-family":"arial",
@@ -129,15 +138,14 @@ class WorldClock extends Component {
           });
           
         //テキスト更新
-        setInterval(function(){
+        setInterval(() => {
           clockText.text(moment().format('HH:mm:ss:SS'));	
         }, 1)
     });
   }
 
   render() {
-    return <svg ref={node => this.node = node}>
-    </svg>
+    return <svg ref={node => (this as any).node = node}></svg>
   }
 }
 
