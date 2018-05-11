@@ -1,10 +1,16 @@
 // (from: https://gist.github.com/shimizu/fde15aa8cf734f1219f8)
 
 import * as d3 from 'd3'
-import moment from 'moment'
-import React, { Component } from 'react'
+import * as moment from 'moment'
+import * as React from 'react';
 
-class WorldClock extends Component {
+export interface Props{
+}
+
+export interface State{
+}
+
+class WorldClock extends React.Component<Props, State> {
   constructor(props){
     super(props)
     this.create = this.create.bind(this)
@@ -19,7 +25,7 @@ class WorldClock extends Component {
 
   create() {
     const _self = this;
-    const node = this.node;
+    const node = (this as any).node;
 
 
     var windowWidht = 960;
@@ -136,7 +142,7 @@ class WorldClock extends Component {
   }
 
   render() {
-    return <svg ref={node => this.node = node}>
+    return <svg ref={node => (this as any).node = node}>
     </svg>
   }
 }
