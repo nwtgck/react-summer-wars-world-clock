@@ -29,7 +29,6 @@ class WorldClock extends Component {
     node.style.height = windowHeight;
           
     var svg = d3.select(node);
-    console.log(svg);
        
     var projection90 = d3.geo.orthographic() 
       .scale(windowWidht/4)	
@@ -129,7 +128,6 @@ class WorldClock extends Component {
             "word-spacing": 5
           });
           
-        console.log(moment);
         //テキスト更新
         setInterval(function(){
           clockText.text(moment().format('HH:mm:ss:SS'));	
