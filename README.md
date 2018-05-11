@@ -14,6 +14,14 @@ The original project is located in gist [shimizu/fde15aa8cf734f1219f8](https://g
 Here, <https://shimz.me/blog/d3-js/4360>, is a blog post about the original project. Thank your very much, [@shimizu](https://github.com/shimizu/)!  
 So I'm a just guy who packaged it into a react component.
 
+## Install
+
+ [![npm version](https://badge.fury.io/js/react-summer-wars-world-clock.svg)](https://badge.fury.io/js/react-summer-wars-world-clock)
+
+ ```bash
+npm install -S react-summer-wars-world-clock
+ ```
+
 ## Usage
 
 Here is very simple jsx.
