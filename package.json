@@ -8,7 +8,12 @@
     "build": "tsc",
     "prepublish": "npm run build"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "react-component",
+    "summer-wars",
+    "clock"    
+  ],
   "author": "Ryo Ota",
   "license": "ISC",
   "description": "",
