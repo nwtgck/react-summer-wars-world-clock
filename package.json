@@ -1,6 +1,6 @@
 {
   "name": "react-summer-wars-world-clock",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -8,7 +8,12 @@
     "build": "tsc",
     "prepublish": "npm run build"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "react-component",
+    "summer-wars",
+    "clock"    
+  ],
   "author": "Ryo Ota",
   "license": "ISC",
   "description": "",
