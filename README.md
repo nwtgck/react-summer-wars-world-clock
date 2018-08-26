@@ -16,7 +16,7 @@ So I'm a just guy who packaged it into a react component.
 
 ## Install
 
- [![npm version](https://badge.fury.io/js/react-summer-wars-world-clock.svg)](https://badge.fury.io/js/react-summer-wars-world-clock)
+ [![npm version](https://badge.fury.io/js/react-summer-wars-world-clock.svg)](https://badge.fury.io/js/react-summer-wars-world-clock) [![Greenkeeper badge](https://badges.greenkeeper.io/nwtgck/react-summer-wars-world-clock.svg)](https://greenkeeper.io/)
 
  ```bash
 npm install -S react-summer-wars-world-clock
