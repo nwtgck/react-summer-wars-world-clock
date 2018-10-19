@@ -46,11 +46,7 @@ class WorldClock extends React.Component<Props, State> {
       .scale(windowWidth/4)	
       .rotate([0,0,0])	
       .translate([windowWidth / 2, windowHeight / 2])
-      .clipAngle(180);	
-        
-      
-    let frontPath = d3.geo.path().projection(projection90);
-    let backPath = d3.geo.path().projection(projection180);
+      .clipAngle(180);
         
 
     const geojson = LandmassesGeojson.geojson;
@@ -67,7 +63,6 @@ class WorldClock extends React.Component<Props, State> {
     //地形(裏)
     const backMap = stage.append("svg:path")
       .attr({
-      "d":()=>{ return backPath(geojson)},
         "fill-opacity":1,
         "fill":"#EDE9F1",
         "stroke":"none",
@@ -76,7 +71,6 @@ class WorldClock extends React.Component<Props, State> {
     //地形(表)
     const frontMap = stage.append("svg:path")
       .attr({
-      "d":()=>{return frontPath(geojson)},
         "fill-opacity":1,
         "fill":"#FD81DB",
         "stroke":"none",
@@ -84,22 +78,22 @@ class WorldClock extends React.Component<Props, State> {
       
   
     //地形を回転させる
-    const update = ()=>{
+    (()=>{
       let i = 0;
-      return ()=>{
+      (function update(){
         i = i+0.2;
         projection90.rotate([i,0,0]);  
         projection180.rotate([i,0,0]);  
 
-        frontPath = d3.geo.path().projection(projection90);
-        backPath  = d3.geo.path().projection(projection180);
+        const frontPath = d3.geo.path().projection(projection90);
+        const backPath  = d3.geo.path().projection(projection180);
 
         backMap.attr("d", backPath(geojson)); 
-        frontMap.attr("d", frontPath(geojson)); 
-        
-      }
-    }		
-    setInterval(update(), 100); 
+        frontMap.attr("d", frontPath(geojson));
+
+        setTimeout(update, 100);
+      })();
+    })();
     
     
     /*************************************************************
